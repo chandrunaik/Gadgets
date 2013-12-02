@@ -6,18 +6,22 @@
 		<title>::login/register::</title>
 		<link rel="stylesheet" href="bootstrap/css/bootstrap.css"  type="text/css"/>
 		<script src="js/alertbox.js"></script>
-                <script src="jedit/jquery.jeditable.js"></script>
+          
+                <!-- Data tables and Jeditable -->
+                
+                <script src="jquery_tables/js/jquery.min.js"></script>
+                <script src="jquery_tables/js/jquery.datatables.js"></script>
+                <script src="jquery_tables/js/jquery.jeditable.js"></script>
+                
     <script>
-    $(document).ready(function() {
-         $('.gname').editable('jeditdemo.php', { 
-         type      : 'text',
-         cancel    : 'Cancel',
-         submit    : 'OK',
-    //     indicator : '<img src="img/indicator.gif">',
-         tooltip   : 'Click to edit...'
-     });
- });
+   $(document).ready( function () {
+		$('#admintable').dataTable().makeEditable({
+							sUpdateURL: "updateadminpage.php"
+							});
+}
     </script>
+    
+    
     <style>
         tr:hover
         {
@@ -51,10 +55,10 @@
   $c=0;
   $result = mysqli_query($con,"SELECT gadget_id,gadget_type,gadget_name,model_no,sl_no,rcvd_date,status,comment from gadgetlist WHERE user_id='$id'");
  
-  echo "<table class=\"table table-bordered\">
+  echo "<table class=\"table table-bordered\" id=\"admintable\">
         <legend>Item Details</legend>
-        <thead><th>#</th><th>Type</th><th>Name</th><th>Model No.</th><th>Serial No.</th>
-        <th>Received Date</th><th>Status</th><th>Comments</th><th></th></thead></tbody>";
+        <thead><tr><th>#</th><th>Type</th><th>Name</th><th>Model No.</th><th>Serial No.</th>
+        <th>Received Date</th><th>Status</th><th>Comments</th><th></th></tr></thead></tbody>";
   
   if($result === FALSE) 
   {
