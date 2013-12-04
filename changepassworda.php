@@ -26,10 +26,10 @@ if(isset($_SESSION['uid']))
 {
   if(isset($_POST['submit']))
      {
-	   $id=$_SESSION['uid'];
-	   $name=$_POST['name'];
-	   $pname=$_POST['pname'];
-	   $cname=$_POST['cname'];
+	   $id=  protect($_SESSION['uid']);
+	   $name=  protect($_POST['name']);
+	   $pname=  protect($_POST['pname']);
+	   $cname=  protect($_POST['cname']);
         if($pname==$cname)
          {
           $con=mysqli_connect("localhost","root","root","gadget");
@@ -63,6 +63,10 @@ if(isset($_SESSION['uid']))
      {
        header('Location:login.php');
       }
+ function protect($value){
+ $con=mysqli_connect("localhost","root","root","gadget");
+  return mysqli_real_escape_string($con,trim(strip_tags($value)));
+}
 
 ?>
    <script src="jq/jquery-1.10.1.min.js"></script>
@@ -71,20 +75,23 @@ if(isset($_SESSION['uid']))
   	
 <div class="container" >
 	<?php include_once('admin_header.html');?>
-<table align="center">
-       <form method="post" action="changepassworda.php">
-	     <legend>Enter Details</legend>
-		 <tr><td>Current password:</td>
+    <form method="post" action="changepassworda.php">
+          <table align="center">
+       
+	         <legend>Enter Details</legend>
+		
+                 <tr><td>Current password:</td>
 		 <td><input id="name" type="password" name="name" required/></td></tr>
-         <tr><td>New password:</td>
+                 <tr><td>New password:</td>
 		 <td><input id="name" type="password" name="pname" required/></td></tr>
 		 <tr><td>Confirm password:</td>
 		 <td><input id="name" type="password" name="cname" required/></td></tr>
-		<tr><td></td><td><button class="btn btn-success" id="submit" type="submit" name="submit">Change password</button></td></tr>
-</table> 
+		 <tr><td></td><td><button class="btn btn-success" id="submit" type="submit" name="submit">Change password</button></td></tr>
+          </table> 
 
-<hr>
-		<a href="adminpage.php"><b> &lt;&lt; &nbsp; Go Back &nbsp;&lt;&lt;</br></a>
+            <hr>
+		
+            <a href="adminpage.php"><b> &lt;&lt; &nbsp; Go Back &nbsp;&lt;&lt;</br></a>
 		
 	  </form>
 </div>

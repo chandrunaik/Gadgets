@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width">
+         
+                <script src="jquery_tables/js/jquery.min.js"></script>
+                <script src="jquery_tables/js/jquery.datatables.js"></script>
+                <script src="jquery_tables/js/jquery.jeditable.js"></script>
+                <script src="jquery_tables/js/jquery.blockui.js"></script>
+                <script> 
+                 $(document).ready(function() {
+     $('.t1').editable('register.php', {
+         indicator : 'Saving...',
+         tooltip   : 'Click to edit...'
+     });
+     $('.t2').editable('register.php', { 
+         type      : 'textarea',
+         cancel    : 'Cancel',
+         submit    : 'OK',
+         indicator : '<img src="img/indicator.gif">',
+         tooltip   : 'Click to edit...'
+     });
+ });
+</script>
+    </head>
+    <body>
+        <table id="t1">
+            <thead>
+                <tr>
+                    <th>name1</th>
+                    <th>name2</th>
+                    <th>name3</th>
+                    <th>name4</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr id="10">
+                    <td id="1" class="t1">chandru1</td>
+                    <td id="2" class="t2">chandru2</td>
+                    <td id="3">chandru3</td>
+                    <td id="4">chandru4</td>
+                </tr>
+                 <tr id="20">
+                    <td id="5">chandru11</td>
+                    <td id="6">chandru22</td>
+                    <td id="7">chandru33</td>
+                    <td id="8">chandru44</td>
+                </tr>
+            <tfoot>
+                <tr>
+                    <td>A</td>
+                </tr>
+            </tfoot>
+                
+            </tbody>
+                          
+        </table>
+    </body>
+</html>

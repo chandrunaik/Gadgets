@@ -29,7 +29,13 @@ background-image: url(img/ui-icons_222222_256x240.png);
 <script>
 $(function()
 {
-$( ".datepicker" ).datepicker();
+$( ".datepicker" ).datepicker({ 
+changeMonth: true,
+changeYear: true,
+showOn: "button",
+buttonImage: "img/calendar.gif",
+buttonImageOnly: true
+});
 $( ".datepicker" ).datepicker( "option", "dateFormat", "yy-mm-dd" );
 $("#doltr").hide();
 $("#chkdol").click(function()
@@ -55,20 +61,20 @@ if(isset($_SESSION['uid']))
 $ferr=$moberr=$lerr=$derr=$merr=$oerr=$aerr=$perr=$dojerr=$dolerr="";
 if(isset($_POST['submit'])) 
 {
-$fname=$_POST['fname'];
-$mname=$_POST['mname'];
-$lname=$_POST['lname'];
-$doj=$_POST['doj'];
-$desg=$_POST['designation'];
-$mobile=$_POST['mobilenum'];
-$offnum=$_POST['officenum'];
-$altnum=$_POST['altnum'];
-$email=$_POST['email'];
-$password=$_POST['password'];
+$fname=protect($_POST['fname']);
+$mname=protect($_POST['mname']);
+$lname=protect($_POST['lname']);
+$doj=protect($_POST['doj']);
+$desg=protect($_POST['designation']);
+$mobile=protect($_POST['mobilenum']);
+$offnum=protect($_POST['officenum']);
+$altnum=protect($_POST['altnum']);
+$email=protect($_POST['email']);
+$password=protect($_POST['password']);
 $role="user";
 if(isset($_POST['dol']))
 {
-$dol=$_POST['dol'];
+$dol=  protect($_POST['dol']);
 }
 else
 {
@@ -249,6 +255,10 @@ $password="";
 else
 {
 header('Location:login.php');
+}
+ function protect($value){
+ $con=mysqli_connect("localhost","root","root","gadget");
+  return mysqli_real_escape_string($con,trim(strip_tags($value)));
 }
 ?>
    <script src="bootstrap/js/bootstrap.js"></script>

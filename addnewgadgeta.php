@@ -26,7 +26,13 @@
 
 <script>
 $(function() {
-$( "#datepicker" ).datepicker();
+$( "#datepicker" ).datepicker({
+changeMonth: true,
+changeYear: true,
+showOn: "button",
+buttonImage: "img/calendar.gif",
+buttonImageOnly: true
+});
 $( "#datepicker" ).datepicker( "option", "dateFormat", "yy-mm-dd" );
 });
 </script>
@@ -113,7 +119,7 @@ header('Location:login.php');
 			<tr><td>Serial Number:</td>
 			<td><input type="text" name="slnum" required/></td></tr>
 			<tr><td>Received Date:</td>
-			<td><input type="text" id="datepicker" name="rdate" required/ readonly="readonly" style="background:white;cursor:auto"></td></tr>
+			<td><input type="text" id="datepicker" name="rdate" required readonly="readonly" style="background:white;cursor:auto"></td></tr>
 			<tr><td>Item Status:</td>
 			<td><select name="status">
 			<?php 

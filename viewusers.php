@@ -10,7 +10,7 @@ $sql="SELECT * FROM user";
 
 $result = mysqli_query($con,$sql);
 
-echo "<table class=\"table table-bordered\"><thead><th>#</th><th>Name</th><th>DoJ</th><th>Designation</th><th>Mobile Number</th><th>Office Number</th><th>Email</th></thead><tbody>";
+echo "<table class=\"table table-bordered\" id=\"testTable\"><thead><th>#</th><th>Name</th><th>DoJ</th><th>Designation</th><th>Mobile Number</th><th>Office Number</th><th>Email</th></thead><tbody>";
   
 $c=0;
  while($row = mysqli_fetch_array($result))

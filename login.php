@@ -42,6 +42,7 @@ ob_start(); ?>
 		}
                 body
                 {
+                 // background-image: linear-gradient(to bottom, silver, white);
                 background-image: url('img/body.jpg');
                 background-size: cover;
                 margin:0px;
@@ -89,6 +90,7 @@ ob_start(); ?>
                  box-shadow:0px 0px 0px 2px skyblue; 
                  opacity:1; 
                  border-radius:5px;
+                 
                 }
                 #ttl
                 {
@@ -152,20 +154,20 @@ ob_start(); ?>
 <script src="jq/jquery-1.10.1.min.js">
 </script>
 		
- <?php 
- $err="";
+<?php 
+$err="";
 if(isset($_POST['submit'])) 
 {
- $email = test_input($_POST['email']);
- $password = test_input($_POST['password']);
- 
+  
  $con=mysqli_connect("localhost","root","root","gadget");
-
  // Check connection
 if (mysqli_connect_errno())
  {
-  echo "Failed to connect to MySQL: " . mysqli_connect_error();
+  echo "Failed to connect, please retry.";// to MySQL: " . mysqli_connect_error();
  }
+ 
+ $email = protect($_POST['email']);
+ $password = protect($_POST['password']);
  
 $result = mysqli_query($con,"SELECT * FROM user WHERE email='$email' AND password='$password'");
 
@@ -200,14 +202,20 @@ else
  echo "<script>alert(\"Sorry...Could not process\");</script>";
 } 
  }
+
+function protect($value){
+ $con=mysqli_connect("localhost","root","root","gadget");
+  return mysqli_real_escape_string($con,trim(strip_tags($value)));
+}
+/*************FUNCTION TO PROTECT USERNAME**************
   function test_input($data)
 {
-  $data = chop($data);
-  $data = trim($data);
-  $data = stripslashes($data);
-  $data = htmlspecialchars($data);
-  return $data;
-}
+  $data1 = chop($data);
+  $data2 = trim($data1);
+  $data3 = stripslashes($data2);
+  $data4 = htmlspecialchars($data3);
+  return $data4;
+}*/
 ?>
 <div id="wrapper">
     <h2 id="ttl">Welcome to Vidya Poshak's Gadget Management System</h2>
@@ -228,7 +236,7 @@ else
 <h5 id="help"><i>For technical help,&nbsp;please contact:&nbsp;<span><a href="mailto:parashuram@vidyaposhak.org">parashuram@vidyaposhak.org</a></span></i></h5>
 <footer>
    <hr> 
-   <p id="ftext"><B>&copy;&nbsp;Vidya Poshak 2013.</B>&nbsp;powered by <b id="powerf">Vidya Poshak &nbsp;<sup id="supf">&reg</sup></b>  Designed by:&nbsp;<b>Chandrashekhar Naik (VP ID: UK-1347/2010-11)</b></p>
+   <p id="ftext"><B>&copy;&nbsp;Vidya Poshak 2013.</B>&nbsp;powered by <b id="powerf">Vidya Poshak &nbsp;<sup id="supf">&reg</sup></b>  Developed by:&nbsp;<b>Chandrashekhar Naik (VP ID: UK-1347/2010-11)</b></p>
     
 </footer>
 

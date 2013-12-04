@@ -1,0 +1,44 @@
+		#header
+		{
+		border:5px solid #C2C9C9;
+		border-radius:5px;
+		padding-left:100px;
+		color:teal;
+		font-weight:bold;
+		font-size:15px;
+		background:#F9FAFA;
+		}
+		#select
+		{
+		margin-top:10px;
+		}
+		#select option
+		{
+		padding:5px;		
+		}
+		#link
+		{
+		padding:5px 10px;
+		//border:3px solid #999;
+		border-radius:5px;
+		box-shadow:0px 1px 3px 3px #999;
+		}
+		th
+		{
+		background-color:#C2C9C9;
+		}
+                .editable
+                {
+                    contenteditable:"true";
+                }
+                #downloadbtn
+                {
+                    background-image: linear-gradient(to bottom, silver,white); 
+                    border:1px solid gray;
+                    border-radius:5px 0px 5px 0px;
+                    height:30px;
+                }
+                #downloadbtn:hover
+                {
+                   background: silver;
+                }	
