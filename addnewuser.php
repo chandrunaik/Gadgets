@@ -1,31 +1,29 @@
-<?php session_start();?>
+<?php session_start();
+ob_start();
+$role=$_SESSION['role'];
+if((strcmp($role,"admin"))==1)
+{
+   // header('Location:login.php');
+    ob_end_flush();
+    exit();   
+}
+elseif(!(isset($_SESSION['uid'])))
+{
+    header('Location:login.php');
+    ob_end_flush();
+    exit();
+}?>
 <!DOCTYPE html>
 <html>
 <head>
             
 	    	<meta charset="utf-8"/>
-		    <title>::  Adding new user  ::</title>
-               <link href="bootstrap/css/bootstrap.css" rel="stylesheet">
+		<title>::  Adding new user  ::</title>
+                <link href="bootstrap/css/bootstrap.css" rel="stylesheet">
     		<link rel="stylesheet" href="js/jquery-ui.css">
                 <script src="js/jquery-1.9.1.js"></script>
                 <script src="js/jquery-ui.js"></script>
-<script>
-function tempAlert(msg,duration)
-{
- var el = document.createElement("h4");
- el.setAttribute("style","position:absolute;z-index:999;top:40%;left:35%;background-color:white;color:red;text-align:center;box-shadow:0px 0px 5px 1px teal;border:1px solid Gray;padding:10px 30px;");
- el.innerHTML = msg;
- setTimeout(function(){
-  el.parentNode.removeChild(el);
- },duration);
- document.body.appendChild(el);
-}
-</script>
-<style>
- .ui-widget-content .ui-icon {
-background-image: url(img/ui-icons_222222_256x240.png);
-}
-</style>
+                <script src="js/alertbox.js"></script>
 <script>
 $(function()
 {
@@ -44,17 +42,39 @@ $("#doltr").toggle();
 });
 });
 </script>
-<style>
-tr td span
-{
-margin-left:5px;
-color:Red;
-}
-</style>
+
+              <style>
+                     tr td span
+                     {
+                        margin-left:5px;
+                        color:Red;
+                      }
+                    .ui-widget-content .ui-icon {
+                          background-image: url(img/ui-icons_222222_256x240.png);
+                        }
+                    body{
+                        background-image: url('img/innerbackgrnd.png'); 
+                        background-repeat:repeat;
+                                            }
+                    legend{color:white;}
+                   
+                    .trtd
+                    {
+                         color:white;
+                       //  font-weight: bold;
+                         padding-bottom:10px;
+                         font-family:Calibri;
+                         font-family:Verdana;
+                    }
+                     .container
+                    {
+                        width:80%;
+                    }
+            </style>
 </head>
 	
 <body>
-	
+
 <?php
 if(isset($_SESSION['uid']))
 {
@@ -94,7 +114,7 @@ if (mysqli_connect_errno())
                     {
                     $a=1;
                     }
-	     if(!empty($mname))
+	           if(!empty($mname))
 	   	    {
 		      if (!preg_match("/^[a-zA-Z]*$/",$mname))
                        {
@@ -110,7 +130,7 @@ if (mysqli_connect_errno())
                    {
                        $b=$c=1;
                    }
-            if(!empty($lname))
+                   if(!empty($lname))
 		    {
 		       if (!preg_match("/^[a-zA-Z]*$/",$lname))
                         {
@@ -176,7 +196,7 @@ if (mysqli_connect_errno())
                   else 
 		   {$h=$i=1;}
                    
-		if (!preg_match("/^[0-9]{4}+-[0-9]{2}+-[0-9]{2}+/",$doj))
+		if (!preg_match("/^[0-9]{4}-[0-9]{2}-[0-9]{2}$/",$doj))
                    {
                       $dojerr = "Enter in \"YYYY-MM-DD\" format";
                       $j="";
@@ -186,7 +206,7 @@ if (mysqli_connect_errno())
                       
 		if(!empty($dol))
 	   	   {
-		     if (!preg_match("/[0-9]{4,4}-[0-9]{2,2}-[0-9]{2,2}/",$dol))
+		     if (!preg_match("/^[0-9]{4}-[0-9]{2}-[0-9]{2}$/",$dol))
                         {
                          $dlerr = "Enter in \"YYYY-MM-DD\" format";
                          $k=$l="";
@@ -197,7 +217,7 @@ if (mysqli_connect_errno())
                    else 
 		      {$k=$l=1;}
 	    
-		if (!preg_match("/^.{5,254}$/",$password))
+		if (!preg_match("/^[0-9a-zA-Z]{5,254}$/",$password))
                    {
                      $perr="Minimum 5 characters";
                      $m="";
@@ -228,8 +248,8 @@ $offnum="";
 $altnum="";
 $email="";
 $password="";
-                  echo "<script>tempAlert(\"New User added\",2000);</script>"; 
-                   header('Location:addnewuser.php');
+              echo "<script>tempAlert(\"Successfully added\",3000);</script>"; 
+             echo "<script>setTimeout(\"location.href = 'addnewuser.php';\",1500);</script>";
               }
               else
               {
@@ -268,51 +288,50 @@ header('Location:login.php');
                
 		  <form method="post" action="addnewuser.php" class="form">
 		   <table align="center">
-		    <fieldset>
-		     <legend>Enter User Details</legend>
+		    <legend>Enter User Details</legend>
 		
-			<tr><td>First Name:</td>
+                     <tr><td class="trtd">First Name:</td>
 			<td><input type="text" name="fname" required value="<?php echo $fname;?>"><span><?php echo $ferr;?></span></td></tr>
 			
-			<tr><td>Middle Name:</td>
+			<tr><td class="trtd">Middle Name:</td>
 			<td><input type="text" name="mname" value="<?php echo $mname;?>"><span><?php echo $merr;?></span></td></tr>
 			
-		        <tr><td>Last Name:</td>
+		        <tr><td class="trtd">Last Name:</td>
 			<td><input type="text" name="lname" value="<?php echo $lname;?>"><span><?php echo $lerr;?></span></td></tr>
 			
-			<tr><td>Designation:</td>
+			<tr><td class="trtd">Designation:</td>
 			<td><input type="text" name="designation" required value="<?php echo $desg;?>"><span><?php echo $derr;?></span></td></tr>
 			
-		        <tr><td>Mobile Number:</td>
-			<td><input type="text" name="mobilenum" required placeholder="10 digit Number" value="<?php echo $mobile;?>"><span><?php echo $moberr;?></span></td></tr>
+		        <tr><td class="trtd">Mobile Number:</td>
+			<td><input type="text" name="mobilenum" required placeholder="10 digit number" value="<?php echo $mobile;?>"><span><?php echo $moberr;?></span></td></tr>
 			
-			<tr><td>Office Number:</td>
+			<tr><td class="trtd">Office Number:</td>
 			<td><input type="text" name="officenum" value="<?php echo $offnum;?>"><span><?php echo $oerr;?></span></td></tr>
 			
-			<tr><td>Alternate Number:</td>
+			<tr><td class="trtd">Alternate Number:</td>
 			<td><input type="text" name="altnum" value="<?php echo $altnum;?>"><span><?php echo $aerr;?></span></td></tr>
 			
-			<tr><td>Date of Joining:</td>
+			<tr><td class="trtd">Date of Joining:</td>
 			<td><input type="text" class="datepicker" name="doj" required placeholder="yyyy-mm-dd" value="<?php echo $doj;?>"><span><?php echo $dojerr;?></span></td></tr>
 			
-			<tr><td>Email:</td>
+			<tr><td class="trtd">Email:</td>
 			<td><input type="email" name="email" required value="<?php echo $email;?>"></td></tr>
 			
-			<tr><td>Password:</td>
+			<tr><td class="trtd">Password:</td>
 			<td><input type="text" name="password" required value="<?php echo $password;?>"><span><?php echo $perr;?></span></td></tr>
 			
-			<tr><td></td><td><p id="chkp"><input type="checkbox" id="chkdol" name="dol">&nbsp;&nbsp;&nbsp;Mention Date of Termination</td></p></tr>
+                        <tr><td></td><td><p id="chkp"><input type="checkbox" id="chkdol" name="dol">&nbsp;&nbsp;&nbsp;<span class="trtd">Mention Date of Termination</span></td></p></tr>
 			
-			<tr id="doltr"><td>Date of Termination:</td>
+			<tr id="doltr"><td class="trtd">Date of Termination:</td>
 			<td><input type="text" class="datepicker" name="dol" readonly="readonly" style="background:white;cursor:auto" value="<?php echo $dol;?>"><span><?php echo $dolerr;?></span></td></tr>
 			
 			<tr><td></td><td><button class="btn btn-small btn-success" style="width:100px" id="submit" type="submit" name="submit">ADD</button></td></tr>			
-		</fieldset></table>
+		</table>
 		</form>
 		
 	
-		     <hr>
-			<a href="adminpage.php"><b> &lt;&lt; &nbsp; Go Back &nbsp;&lt;&lt;</br></a>
+            <legend></legend>
+			<a href="adminpage.php"><b>Go Back</a>
 		
 	</div>
        

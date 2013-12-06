@@ -1,32 +1,54 @@
-<?php session_start();?>
+<?php session_start();
+ob_start();
+$role=$_SESSION['role'];
+if((strcmp($role,"admin"))==1)
+{
+   // header('Location:login.php');
+    ob_end_flush();
+    exit();   
+}
+elseif(!(isset($_SESSION['uid'])))
+{
+    header('Location:login.php');
+    ob_end_flush();
+    exit();
+}?>
 <!DOCTYPE html>
 <html>
 
 	<head>
-	      <meta charset="utf-8"/>
-		    <title>:: Add new Category::</title>
-            <link href="bootstrap/css/bootstrap.css" rel="stylesheet">
-    		<link rel="stylesheet" href="js/jquery-ui.css" rel="stylesheet">
-           <script src="js/jquery-1.9.1.js"></script>
-           <script src="js/jquery-ui.js"></script>
-           <style>
-               span{
-                   color:red;
-               }     
+	    <meta charset="utf-8"/>
+            <title>:: Add new Category::</title>
+            <link href="bootstrap/css/bootstrap.css" rel="stylesheet"/>
+            <link rel="stylesheet" href="js/jquery-ui.css"/>
+            <script src="js/jquery-1.9.1.js"></script>
+            <script src="js/jquery-ui.js"></script>
+            <script src="js/alertbox.js" type="text/javascript"></script>
+            <style>
+                     span{
+                         color:red;
+                        }
+                    body{
+                        background-image: url('img/innerbackgrnd.png'); 
+                        background-repeat:repeat;
+                    }
+                    legend 
+                    {
+                        color:white;
+                    }
+                    .name
+                    {
+                         color:white;
+                         //font-weight: bold;
+                         padding-bottom:10px;
+                         font-family:Verdana;
+                     }
+                    .container
+                    {
+                        width:80%;
+                    }
           
            </style>
-<script>
-function tempAlert(msg,duration)
-{
- var el = document.createElement("h4");
- el.setAttribute("style","position:absolute;z-index:999;top:40%;left:40%;background-color:white;color:Gray;text-align:center;box-shadow:0px 0px 5px 1px Silver;border:5px solid Silver;padding:5px 10px;");
- el.innerHTML = msg;
- setTimeout(function(){
-  el.parentNode.removeChild(el);
- },duration);
- document.body.appendChild(el);
-}
-</script>
 </head>
 	
 <body>
@@ -51,6 +73,7 @@ $result=mysqli_query($con,"Select type_name from type where type_name='".$catnam
 if((mysqli_num_rows($result))==1)
 {
  echo "<script>tempAlert(\"Name already exists!\",2000);</script>";
+  echo "<script>setTimeout(\"location.href = 'addnewcategory.php';\",1500);</script>";
 }
 else
 {
@@ -64,27 +87,23 @@ else
                     $a=1;
                     }
  if($a==1){                   
-$sql="INSERT INTO type(type_name)
-VALUES('$catname')";
+$sql="INSERT INTO type(type_name) VALUES('$catname')";
 
  if (!mysqli_query($con,$sql))
   {
     die('Error: ' . mysqli_error($con));
   }
- 
- echo "<script>tempAlert(\"New Category added\",2000);</script>"; 
- header('Location:addnewcategory.php');
+ echo "<script>tempAlert(\"Added successfully\",2000);</script>";
+  echo "<script>setTimeout(\"location.href = 'addnewcategory.php';\",1500);</script>";
  }
- else {
-     
- }
+ else 
+{}
 }
- }
+}
  else
  {
     $catname=""; 
- }
-}
+ }}
 else
 {
 header('Location:login.php');
@@ -99,17 +118,17 @@ header('Location:login.php');
            
 		   <form method="post" action="addnewcategory.php" class="form">
 		   <table align="center">
-		   <legend> Add New category</legend>
-		
-			<tr><td>Category Name:</td>
+		         <legend> Add New category</legend>
+                         <br>
+			    <tr><td class='name'>Category Name:</td>
                             <td><input type="text" name="catname" required value="<?php echo $catname;?>"><span><?php echo $cerr;?></span></td></tr>
 					
-			<tr><td></td><td><button class="btn btn-small btn-success" style="width:100px" id="submit" type="submit" name="submit">Save</button></td></tr>			
-		
-		
-	</table></form>
-		     <hr>
-			<a href="adminpage.php"><b> &lt;&lt; &nbsp; Go Back &nbsp;&lt;&lt;</br></a>
+                        <tr><td></td><td><button class="btn btn-small btn-success" style="width:100px" id="submit" type="submit" name="submit"><b>Save</b></button></td></tr>			
+			
+	           </table>
+                   </form>
+            <legend></legend>
+			<a href="adminpage.php"><b>Go Back</b></a>
 		
 	</div>
        

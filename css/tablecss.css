@@ -23,22 +23,4 @@
 		border-radius:5px;
 		box-shadow:0px 1px 3px 3px #999;
 		}
-		th
-		{
-		background-color:#C2C9C9;
-		}
-                .editable
-                {
-                    contenteditable:"true";
-                }
-                #downloadbtn
-                {
-                    background-image: linear-gradient(to bottom, silver,white); 
-                    border:1px solid gray;
-                    border-radius:5px 0px 5px 0px;
-                    height:30px;
-                }
-                #downloadbtn:hover
-                {
-                   background: silver;
-                }	
+		

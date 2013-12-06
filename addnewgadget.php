@@ -1,4 +1,18 @@
-<?php session_start();?>
+<?php session_start();
+ob_start();
+$role=$_SESSION['role'];
+if((strcmp($role,"admin"))==0)
+{
+    //header('Location:login.php');
+    ob_end_flush();
+    exit();   
+}
+elseif(!(isset($_SESSION['uid'])))
+{
+    header('Location:login.php');
+    ob_end_flush();
+    exit();
+}?>
 <!DOCTYPE html>
 <html>
 
@@ -25,11 +39,43 @@ el.innerHTML = msg;
 
 <script>
 $(function() {
-$( "#datepicker" ).datepicker();
+$( "#datepicker" ).datepicker({
+  changeMonth: true,
+  changeYear: true,
+showOn: "button",
+buttonImage: "img/calendar.gif",
+buttonImageOnly: true
+});
 $( "#datepicker" ).datepicker( "option", "dateFormat", "yy-mm-dd" );
 });
 </script>
-
+<style>
+     .ui-widget-content .ui-icon {
+                        background-image: url(img/ui-icons_222222_256x240.png);
+                        }
+                    body{
+                        background-image: url('img/innerbackgrnd.png'); 
+                        background-repeat:repeat;
+                                            }
+                    legend{color:white;}
+                   
+                    .trtd
+                    {
+                         color:white;
+                        // font-weight: bold;
+                         padding-bottom:10px;
+                        font-family:Verdana;
+                    }
+                     .container
+                    {
+                        width:80%;
+                    }
+                    span#errmsg
+                    {
+                    color:red;
+                    font-weight:bold;
+                    }
+</style>
 </head>
 	
 <body>
@@ -43,8 +89,9 @@ if (mysqli_connect_errno())
   }
 if(isset($_SESSION['uid']))
 {
+    $perr="";
 if(isset($_POST['submit'])) 
-	{
+{
 $id=$_SESSION['uid'];
 $gtype=$_POST['gtype'];
 $gname=$_POST['gname'];
@@ -60,7 +107,16 @@ if (mysqli_connect_errno())
   {
   echo "Failed to connect to MySQL: " . mysqli_connect_error();
   }
-
+    if (!preg_match("/^[0-9]{4}-[0-9]{2}-[0-9]{2}$/",$rcvddate))
+                        {
+                         $perr = "Enter in \"YYYY-MM-DD\" format";
+                         $k="";
+                        }	
+                       else 	
+                       {$k=1;}
+ if($k==1)
+ {                  
+ 
 $sql="INSERT INTO gadgetlist(user_id,gadget_type,gadget_name,model_no,sl_no,rcvd_date,status,comment)
 VALUES('$id','$gtype','$gname','$modelno','$slno','$rcvddate','$status','$comment')";
 
@@ -73,6 +129,12 @@ VALUES('$id','$gtype','$gname','$modelno','$slno','$rcvddate','$status','$commen
  echo "<script>tempAlert(\"New item added\",2000);</script>"; 
  echo "<script>setTimeout(\"location.href = 'usermain.php';\",1500);</script>";
 }
+ else 
+ {
+     
+ }
+   
+ }
 }
 else
 {
@@ -89,7 +151,7 @@ header('Location:login.php');
 		 <table align="center">
 		  <legend>Enter Item Details</legend>
 		   
-			<tr><td>Gadget Type:</td>
+			<tr><td class="trtd">Gadget Type:</td>
 			<td><select name="gtype">
 			<?php 
                           $sql = mysqli_query($con,"SELECT * FROM type");
@@ -99,34 +161,34 @@ header('Location:login.php');
 						  }
 			?>
 			</select></td></tr>
-			<tr><td>Gadget Name:</td>
+                        <tr><td class="trtd">Gadget Name:</td>
 			<td><input type="text" name="gname" required/></td></tr>
-		    <tr><td>Model Number:</td>
+		        <tr><td class="trtd">Model Number:</td>
 			<td><input type="text" name="modnum" required/></td></tr>
-			<tr><td>Serial Number:</td>
+			<tr><td class="trtd">Serial Number:</td>
 			<td><input type="text" name="slnum" required/></td></tr>
-			<tr><td>Received Date:</td>
-			<td><input type="text" id="datepicker" name="rdate" required/ readonly="readonly" style="background:white;cursor:auto"></td></tr>
-			<tr><td>Item Status:</td>
+			<tr><td class="trtd">Received Date:</td>
+                            <td><input type="text" id="datepicker" name="rdate" required><span id="errmsg">&nbsp;&nbsp;<?php echo $perr;?></span></td></tr>
+			<tr><td class="trtd">Item Status:</td>
 			<td><select name="status">
-			<?php 
+			  <?php 
                           $sql = mysqli_query($con,"SELECT * FROM status");
                           while ($row = mysqli_fetch_array($sql))
 						  {
                           echo "<option value=\"".$row['status_name']."\">" . $row['status_name'] . "</option>";
 						  }
-		    mysqli_close($con);
+		         mysqli_close($con);
 			?></select></td></tr>
-			<tr><td>Comment:</td>
-			<td><input type="text" name="comment" required/></td></tr>
-			<tr><td></td><td><button class="btn btn-success" id="submit" type="submit" name="submit">ADD</button></td></tr>			
+			<tr><td class="trtd">Comment:</td>
+			<td><input type="text" name="comment"/></td></tr>
+			<tr><td></td><td><button class="btn btn-info" id="submit" type="submit" name="submit">&nbsp;&nbsp;Add&nbsp;&nbsp;</button></td></tr>			
 		
 	<fieldset>
 		
 		
 	</table></form>
-		     <hr>
-			<a href="usermain.php"><b> &lt;&lt; &nbsp; Go Back &nbsp;&lt;&lt;</br></a>
+            <legend></legend>
+			<a href="usermain.php"><b>Go Back</a>
 		
 	</div>
        

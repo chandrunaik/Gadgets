@@ -1,4 +1,18 @@
-<?php session_start(); ?>
+<?php session_start();
+ob_start();
+$role=$_SESSION['role'];
+if((strcmp($role,"admin"))==1)
+{
+   // header('Location:login.php');
+    ob_end_flush();
+    exit();   
+}
+elseif(!(isset($_SESSION['uid'])))
+{
+    header('Location:login.php');
+    ob_end_flush();
+    exit();
+}?>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -6,7 +20,8 @@
 		<title>::login/register::</title>
 		<link rel="stylesheet" href="bootstrap/css/bootstrap.css"  type="text/css"/>
 		<script src="js/alertbox.js"></script>
-          
+                <link rel="stylesheet" href="css/tabletheme.css"  type="text/css"/>
+		
                 <!-- Data tables and J editable -->
                 
                 <script src="jquery_tables/js/jquery.min.js"></script>
@@ -112,55 +127,16 @@
      
     });
 </script>
-    
-    
-    <style>
-        tr:hover
-        {
-            background-color: #F9FAFA;
-        }
-         #downloadbtn
-                {
-                    background-image: linear-gradient(to bottom, silver,white); 
-                    border:1px solid gray;
-                    border-radius:0px 0px 5px 0px;
-                    height:30px;
-                }
-                #downloadbtn:hover
-                {
-                   background: silver;
-                }
-                #addlink
-                {
-                    border:1px solid black;
-                    padding:6px 10px;
-                    border:1px solid gray;
-                     border-radius:5px 0px 0px 0px;
-                     background-image: linear-gradient(to bottom, silver,white);  
-                }
-                .container,#content
-                {
-                  width:80%;  
-                    
-                }
-      </style>
-  
-		</head>
+</head>
 <body>
-	<div class="container">
-    
-	<?php include_once('admin_header.html');?>
-        <style>
-		th
-		{
-		background-color:#C2C9C9;
-		}
-		</style>
-   
-<?php 
-  if(isset($_SESSION['uid']))
-   {
-   $id=$_SESSION['uid'];
+    <div class="container">
+
+        <?php include_once('admin_header.html');?>  
+
+            <?php 
+             if(isset($_SESSION['uid']))
+              {
+       $id=$_SESSION['uid'];
    $con=mysqli_connect("localhost","root","root","gadget");
    // Check connection
   if (mysqli_connect_errno())
@@ -171,7 +147,7 @@
   $result = mysqli_query($con,"SELECT gadget_id,gadget_type,gadget_name,model_no,sl_no,rcvd_date,status,comment from gadgetlist WHERE user_id='$id'");
  
   echo "<table class=\"table table-bordered\" id=\"testTable\">
-        <legend>Item Details</legend>
+        <legend><span id=\"tblheading\">Item Details</span></legend>
         <thead><tr><th>#</th><th>Type</th><th>Name</th><th>Model No.</th><th>Serial No.</th>
         <th>Received Date</th><th>Status</th><th>Comments</th></tr></thead></tbody>";
   
@@ -204,9 +180,8 @@
     exit;
    }  
 ?>
-  <hr>
-  <a href=addnewgadgeta.php id="addlink"><b>+ &nbsp;Add New</b></a>
-  <input type="button" id="downloadbtn" onclick="tableToExcel('testTable', 'W3C Example Table')" value="Export to Excel">
-   </div>
+  <a href=addnewgadgeta.php><b>+ &nbsp;Add New &nbsp; |</b></a>
+  <a href="javascript:tableToExcel('testTable', 'W3C Example Table')"><b>Save as Excel</b></a>
+    </div>
   	</body>
 </html>

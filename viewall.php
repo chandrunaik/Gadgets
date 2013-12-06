@@ -1,10 +1,18 @@
 <?php session_start();
 ob_start();
-if(!(isset($_SESSION['uid'])))
+$role=$_SESSION['role'];
+if((strcmp($role,"admin"))==1)
+{
+    //header('Location:login.php');
+    ob_end_flush();
+    exit();   
+}
+elseif(!(isset($_SESSION['uid'])))
 {
     header('Location:login.php');
-}
-?>
+    ob_end_flush();
+    exit();
+}?>
 <!DOCTYPE html>
 <html>
      <head>
@@ -12,12 +20,14 @@ if(!(isset($_SESSION['uid'])))
 		<title>:: view list ::</title>
 		<link rel="stylesheet" href="bootstrap/css/bootstrap.css"  type="text/css"/>
 		<link rel="stylesheet" href="css/tablecss.css" type="text/css"/>
+                 <link rel="stylesheet" href="css/tabletheme.css"  type="text/css"/>
+		
                 <script src="js/alertbox.js"></script>                
                 <script src="js/htmltoexcel.js"></script>
                 <script src="jq/jquery-1.10.1.min.js"></script>
                 <script src="js/htmltoexcel.js"></script>
                 <script src="jquery_tables/js/jquery.jeditable.js"></script>
-      
+               
         <script> 
     $.calleditable = function() {
         $('.gt').editable('http://localhost/Gadgets/update.php', {
@@ -185,41 +195,6 @@ xmlhttp.open("GET","viewgadgetsbyuser.php?userid="+userid,true);
 xmlhttp.send();
 }
 </script> 
-               <style>
-                tr:hover
-                {
-                     background-color: #F9FAFA;
-                }
-                #downloadbtn
-                {
-                    background-image: linear-gradient(to bottom, silver,white); 
-                    border:1px solid gray;
-                    border-radius:0px 0px 5px 0px;
-                    height:30px;
-                }
-                #downloadbtn:hover
-                {
-                   background: silver;
-                }
-                #addlink
-                {
-                    border:1px solid black;
-                    padding:6px 10px;
-                    border:1px solid gray;
-                    border-radius:5px 0px 0px 0px;
-                    background-image: linear-gradient(to bottom, silver,white);  
-                }
-               	th
-		{
-		background-color:#C2C9C9;
-		}
-                .container,#content
-                {
-                  width:80%;  
-                   
-                }
-		</style>
-		
      </head>
 <body>
 	<div class="container">
@@ -248,9 +223,9 @@ xmlhttp.send();
 			</select>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>
 			<a id="link" href="javascript:viewusers();">View all users</a></b></p>
 		
-		<div id="content" ></div> 
+		<div id="content"></div> 
 
-          <input id="downloadbtn" type="button" onclick="tableToExcel('testTable', 'W3C Example Table')" value="Save as excel">
+                <a href="javascript:tableToExcel('testTable', 'W3C Example Table')"><b>Save as Excel</b></a>
       
    </div> 
 </body>

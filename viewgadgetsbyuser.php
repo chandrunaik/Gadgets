@@ -14,7 +14,7 @@ $result = mysqli_query($con,$sql);
 
 //echo "<table class=\"table table-bordered\" id=\"testTable\"><th>#</th><th>Type</th><th>Name</th><th>Model No.</th><th>Serial No.</th><th>Received Date</th><th>Status</th><th>Comments</th>";
 echo "<table class=\"table table-bordered\" id=\"testTable\">
-        <legend>Item Details</legend>
+        <legend><span id=\"tblheading\">Item Details</span></legend>
         <thead><tr><th>#</th><th>Type</th><th>Name</th><th>Model No.</th><th>Serial No.</th>
         <th>Received Date</th><th>Status</th><th>Comments</th></tr></thead></tbody>"; 
 $c=0;

@@ -1,0 +1,35 @@
+                .container
+                {
+                  width:80%;  
+                 
+                }
+                #content
+                {
+                    width:100%;
+                }
+                #tblheading
+                {
+                    color: white;
+                }
+                th
+		{
+		background-color:#336699;
+                color: silver;
+		}
+                body
+                {
+                 background-image: url('../img/innerbackgrnd.png'); 
+                 background-repeat:repeat;
+                }
+                tr:nth-child(even)
+                {
+                 background: #CCCCCC;
+                }
+                tr:nth-child(odd)
+                {
+                    background:#CCCC9A;
+                }
+                tbody tr:hover
+                {
+                    background: whitesmoke;
+                }
