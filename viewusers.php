@@ -16,8 +16,13 @@ $c=0;
  while($row = mysqli_fetch_array($result))
   {
        $c+=1;
-	  echo "<tr><td>".$c."</td><td><a href=\"javascript:viewgadgetsbyuser(".$row['user_id'].");\"><b>".$row['first_name']." ".$row['middle_name']." ".$row['last_name']."</b></a></td><td>".$row['doj']."</td><td>".$row['designation']."</td><td>".$row['mobile']."</td><td>".$row['office']."</td><td>".$row['email']."</td></tr>";
-
+	  echo "<tr><td>".$c."</td>"
+                  ."<td><a href=\"javascript:viewgadgetsbyuser(".$row['user_id'].");\"><b>".$row['first_name']." ".$row['middle_name']." ".$row['last_name']."</b></a></td>"
+                  ."<td class=\"doj\" id=\"".$row['user_id']."_1"."\">".$row['doj']."</td>"
+                  ."<td class=\"desg\" id=\"".$row['user_id']."_2"."\">".$row['designation']."</td>"
+                  ."<td class=\"mobile\" id=\"".$row['user_id']."_3"."\">".$row['mobile']."</td>"
+                  ."<td class=\"office\" id=\"".$row['user_id']."_4"."\">".$row['office']."</td>"
+                  ."<td class=\"email\" id=\"".$row['user_id']."_5"."\">".$row['email']."</td></tr>";
   }
 echo "</tbody></table>";
 

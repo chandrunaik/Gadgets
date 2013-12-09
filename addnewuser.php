@@ -91,7 +91,8 @@ $offnum=protect($_POST['officenum']);
 $altnum=protect($_POST['altnum']);
 $email=protect($_POST['email']);
 $password=protect($_POST['password']);
-$role="user";
+$rolee=$_POST['role'];
+$role=(string)$rolee;
 if(isset($_POST['dol']))
 {
 $dol=  protect($_POST['dol']);
@@ -123,7 +124,7 @@ if (mysqli_connect_errno())
                        } 
                        else
                        {
-                         $b=1;  
+                         $b=$c=1;  
                        }
 		   }
                    else
@@ -139,7 +140,7 @@ if (mysqli_connect_errno())
 		        }
 	                else 
                         {
-                            $d=1;
+                            $d=$e=1;
                         }
                     }
                     else
@@ -175,7 +176,7 @@ if (mysqli_connect_errno())
                      }
                      else
                      {
-                     $f=1;
+                     $f=$g=1;
                      }
                     }
                   else
@@ -191,7 +192,7 @@ if (mysqli_connect_errno())
                       $h=$i="";
                      }
 	              else 
-		      {$h=1;}
+		      {$h=$i=1;}
                   }
                   else 
 		   {$h=$i=1;}
@@ -212,7 +213,7 @@ if (mysqli_connect_errno())
                          $k=$l="";
                         }	
                      else 	
-                   {$k=1;}
+                   {$k=$l=1;}
                     }
                    else 
 		      {$k=$l=1;}
@@ -225,7 +226,7 @@ if (mysqli_connect_errno())
                    else
                    {$m=1;}
                    
-             if($a==1 && ($b==1 || $c==1) && ($d==1 || $e==1) && ($f==1 || $g==1) && ($h==1 || $i==1) && $j==1 &&($k==1 || $l==1) && $m==1)
+             if($a==1 && $b==1 && $c==1 && $d==1 && $e==1 && $f==1 && $g==1 && $h==1 && $i==1 && $j==1 && $k==1 && $l==1 && $m==1)
               {
               $sql="INSERT INTO user(first_name,middle_name,last_name,doj,
               designation,dol,mobile,office,alternate,email,password,role)
@@ -320,6 +321,8 @@ header('Location:login.php');
 			<tr><td class="trtd">Password:</td>
 			<td><input type="text" name="password" required value="<?php echo $password;?>"><span><?php echo $perr;?></span></td></tr>
 			
+                        <tr><td class="trtd">Role:</td><td><select name="role"><option selected="selected" value="user">USER</option><option value="admin">ADMIN</option></select></td></tr>
+                       
                         <tr><td></td><td><p id="chkp"><input type="checkbox" id="chkdol" name="dol">&nbsp;&nbsp;&nbsp;<span class="trtd">Mention Date of Termination</span></td></p></tr>
 			
 			<tr id="doltr"><td class="trtd">Date of Termination:</td>

@@ -28,7 +28,7 @@ elseif(!(isset($_SESSION['uid'])))
                 <script src="js/htmltoexcel.js"></script>
                 <script src="jquery_tables/js/jquery.jeditable.js"></script>
                
-        <script> 
+<script> 
     $.calleditable = function() {
         $('.gt').editable('http://localhost/Gadgets/update.php', {
          loadurl:'http://localhost/Gadgets/gettype.php',
@@ -120,6 +120,101 @@ elseif(!(isset($_SESSION['uid'])))
        }
        }); 
     };
+ 
+   $.calluserinfoedit = function() {
+  /* $('.fname').editable('http://localhost/Gadgets/updateuserinfo.php', {
+         indicator : '<img src="img/indicator.gif">',
+         tooltip:'Click to edit',
+         width:'100px',
+         height:'20px',
+         submit:'OK',
+         callback : function(value, settings) {
+         console.log(this);
+         console.log(value);
+         console.log(settings);
+       }
+     });*/
+        $('.doj').editable('http://localhost/Gadgets/updateuserinfo.php', {
+         indicator : '<img src="img/indicator.gif">',
+         tooltip:'Click to edit',
+         width:'100px',
+         height:'20px',
+         submit:'OK',
+         callback : function(value, settings) {
+         console.log(this);
+         console.log(value);
+         console.log(settings);
+       }
+     });
+     $('.desg').editable('http://localhost/Gadgets/updateuserinfo.php', {
+         
+         indicator : '<img src="img/indicator.gif">',
+         tooltip:'Click to edit',
+         width:'100px',
+         height:'20px',
+         submit:'OK',
+         callback : function(value, settings) {
+         console.log(this);
+         console.log(value);
+         console.log(settings);
+       }
+     });
+     
+      $('.mobile').editable('http://localhost/Gadgets/updateuserinfo.php', {
+         indicator : '<img src="img/indicator.gif">',
+         tooltip:'Click to edit',
+         width:'100px',
+         height:'20px',
+          submit:'OK',
+         callback : function(value, settings) {
+         console.log(this);
+         console.log(value);
+         console.log(settings);
+       }
+     });
+      $('.office').editable('http://localhost/Gadgets/updateuserinfo.php', {
+         indicator : '<img src="img/indicator.gif">',
+         tooltip:'Click to edit',
+         width:'100px',
+         height:'20px',
+          submit:'OK',
+         callback : function(value, settings) {
+         console.log(this);
+         console.log(value);
+         console.log(settings);
+       }
+     });
+      $('.email').editable('http://localhost/Gadgets/updateuserinfo.php', {
+       indicator : '<img src="img/indicator.gif">',
+       tooltip:'Click to edit',
+       width:'100px',
+       height:'20px',
+        submit:'OK',
+       //type:'date',
+       callback : function(value, settings) {
+      console.log(this);
+      console.log(value);
+      console.log(settings);
+      }
+     });
+   
+    /*  $('.gcomm').editable('http://localhost/Gadgets/update.php', {
+         indicator : '<img src="img/indicator.gif">',
+         tooltip:'Click to edit',
+          //width:'100px',
+         //height:'20px',
+         type:'textarea',
+         submit:'OK',
+         callback : function(value, settings) {
+         console.log(this);
+         console.log(value);
+         console.log(settings);
+       }
+     });
+     
+     */
+    };
+
 function viewusers()
 {
 if (window.XMLHttpRequest)
@@ -135,6 +230,7 @@ xmlhttp.onreadystatechange=function()
   if (xmlhttp.readyState==4 && xmlhttp.status==200)
     {
     document.getElementById("content").innerHTML=xmlhttp.responseText;
+     $.calluserinfoedit();
     }
   }
 xmlhttp.open("GET","viewusers.php?",true);
@@ -164,8 +260,7 @@ xmlhttp.onreadystatechange=function()
     {
     document.getElementById("content").innerHTML=xmlhttp.responseText;
      $.calleditable();
-    // $('content').gotof();
-    }
+       }
   }
 xmlhttp.open("GET","viewallcatwise.php?q="+str,true);
 xmlhttp.send();

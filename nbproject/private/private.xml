@@ -4,25 +4,31 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/C:/wamp/www/Gadgets/logout.php</file>
-            <file>file:/C:/wamp/www/Gadgets/usermain.php</file>
+            <file>file:/C:/wamp/www/Gadgets/jquery_tables/js/jquery.jeditable.js</file>
             <file>file:/C:/wamp/www/Gadgets/login.php</file>
             <file>file:/C:/wamp/www/Gadgets/addnewcategory.php</file>
+            <file>file:/C:/wamp/www/Gadgets/js/htmltoexcel.js</file>
             <file>file:/C:/wamp/www/Gadgets/viewallcatwise.php</file>
+            <file>file:/C:/wamp/www/Gadgets/css/tabletheme.css</file>
             <file>file:/C:/wamp/www/Gadgets/changepassworda.php</file>
-            <file>file:/C:/wamp/www/Gadgets/viewusers.php</file>
-            <file>file:/C:/wamp/www/Gadgets/viewgadgetsbyuser.php</file>
-            <file>file:/C:/wamp/www/Gadgets/viewall.php</file>
             <file>file:/C:/wamp/www/Gadgets/viewallbyuser.php</file>
-            <file>file:/C:/wamp/www/Gadgets/addnewgadget.php</file>
-            <file>file:/C:/wamp/www/Gadgets/addnewuser.php</file>
             <file>file:/C:/wamp/www/Gadgets/gettype.php</file>
-            <file>file:/C:/wamp/www/Gadgets/user_header.html</file>
+            <file>file:/C:/wamp/www/Gadgets/addnewuser.php</file>
             <file>file:/C:/wamp/www/Gadgets/addnewgadgeta.php</file>
-            <file>file:/C:/wamp/www/Gadgets/changepasswordu.php</file>
+            <file>file:/C:/wamp/www/Gadgets/user_header.html</file>
             <file>file:/C:/wamp/www/Gadgets/adminpage.php</file>
+            <file>file:/C:/wamp/www/Gadgets/js/alertbox.js</file>
+            <file>file:/C:/wamp/www/Gadgets/index.html</file>
+            <file>file:/C:/wamp/www/Gadgets/usermain.php</file>
+            <file>file:/C:/wamp/www/Gadgets/index.php</file>
+            <file>file:/C:/wamp/www/Gadgets/updateuserinfo.php</file>
+            <file>file:/C:/wamp/www/Gadgets/viewall.php</file>
+            <file>file:/C:/wamp/www/Gadgets/viewgadgetsbyuser.php</file>
+            <file>file:/C:/wamp/www/Gadgets/viewusers.php</file>
+            <file>file:/C:/wamp/www/Gadgets/addnewgadget.php</file>
+            <file>file:/C:/wamp/www/Gadgets/changepasswordu.php</file>
             <file>file:/C:/wamp/www/Gadgets/admin_header.html</file>
             <file>file:/C:/wamp/www/Gadgets/update.php</file>
-            <file>file:/C:/wamp/www/Gadgets/js/alertbox.js</file>
         </group>
     </open-files>
 </project-private>

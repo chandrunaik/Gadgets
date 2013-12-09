@@ -3,7 +3,7 @@ ob_start();
 $role=$_SESSION['role'];
 if((strcmp($role,"admin"))==1)
 {
-    header('Location:login.php');
+    //header('Location:login.php');
     ob_end_flush();
     exit();   
 }
@@ -17,19 +17,31 @@ elseif(!(isset($_SESSION['uid'])))
 <html>
 
 	<head>
-        	<meta charset="utf-8"/>
-        	<title>:: Add new item to list ::</title>
-                <link href="bootstrap/css/bootstrap.css" rel="stylesheet">
-    		<link rel="stylesheet" href="js/jquery-ui.css">
-                <script src="js/jquery-1.9.1.js"></script>
-                <script src="js/jquery-ui.js"></script>
-                <script src="js/alertbox.js" type="text/javascript"></script>
-                
+	        
+	     <meta charset="utf-8"/>
+             <title>::login/register::</title>
+             <link href="bootstrap/css/bootstrap.css" rel="stylesheet">
+    	     <link rel="stylesheet" href="js/jquery-ui.css">
+             <script src="js/jquery-1.9.1.js"></script>
+             <script src="js/jquery-ui.js"></script>
+<script>
+function tempAlert(msg,duration)
+{
+ var el = document.createElement("h4");
+ el.setAttribute("style","position:absolute;z-index:999;top:40%;left:40%;background-color:white;color:teal;text-align:center;box-shadow:0px 0px 5px 1px Orange;border:5px solid Red;padding:5px 10px;");
+el.innerHTML = msg;
+ setTimeout(function(){
+  el.parentNode.removeChild(el);
+ },duration);
+ document.body.appendChild(el);
+}
+</script>
+
 <script>
 $(function() {
 $( "#datepicker" ).datepicker({
-changeMonth: true,
-changeYear: true,
+  changeMonth: true,
+  changeYear: true,
 showOn: "button",
 buttonImage: "img/calendar.gif",
 buttonImageOnly: true
@@ -38,7 +50,7 @@ $( "#datepicker" ).datepicker( "option", "dateFormat", "yy-mm-dd" );
 });
 </script>
 <style>
-                    .ui-widget-content .ui-icon {
+     .ui-widget-content .ui-icon {
                         background-image: url(img/ui-icons_222222_256x240.png);
                         }
                     body{
@@ -58,26 +70,28 @@ $( "#datepicker" ).datepicker( "option", "dateFormat", "yy-mm-dd" );
                     {
                         width:80%;
                     }
+                    span#errmsg
+                    {
+                    color:red;
+                    font-weight:bold;
+                    }
 </style>
-
 </head>
 	
-
+<body>
 	
 <?php 
-if(isset($_SESSION['uid']))
-{
-   
-   $con=mysqli_connect("localhost","root","root","gadget");
-
+$con=mysqli_connect("localhost","root","root","gadget");
 // Check connection
-  if (mysqli_connect_errno())
+if (mysqli_connect_errno())
   {
   echo "Failed to connect to MySQL: " . mysqli_connect_error();
   }
-  
+if(isset($_SESSION['uid']))
+{
+    $perr="";
 if(isset($_POST['submit'])) 
-	{
+{
 $id=$_SESSION['uid'];
 $gtype=$_POST['gtype'];
 $gname=$_POST['gname'];
@@ -93,6 +107,16 @@ if (mysqli_connect_errno())
   {
   echo "Failed to connect to MySQL: " . mysqli_connect_error();
   }
+    if (!preg_match("/^[0-9]{4}-[0-9]{2}-[0-9]{2}$/",$rcvddate))
+                        {
+                         $perr = "Enter in \"YYYY-MM-DD\" format";
+                         $k="";
+                        }	
+                       else 	
+                       {$k=1;}
+ if($k==1)
+ {                  
+ 
 $sql="INSERT INTO gadgetlist(user_id,gadget_type,gadget_name,model_no,sl_no,rcvd_date,status,comment)
 VALUES('$id','$gtype','$gname','$modelno','$slno','$rcvddate','$status','$comment')";
 
@@ -101,22 +125,31 @@ VALUES('$id','$gtype','$gname','$modelno','$slno','$rcvddate','$status','$commen
   //echo $_POST['status'];
   die('Error: ' . mysqli_error($con));
   }
-  echo "<script>tempAlert(\"Added successfully\",2000);</script>";
-  echo "<script>setTimeout(\"location.href = 'addnewgadgeta.php';\",1500);</script>";
+ // mysqli_close($con);
+ echo "<script>tempAlert(\"New item added\",2000);</script>"; 
+ echo "<script>setTimeout(\"location.href = 'adminpage.php';\",1500);</script>";
 }
+ else 
+ {
+     
+ }
+   
+ }
 }
 else
 {
 header('Location:login.php');
 }
 ?>
-<body>
-
+   <script src="bootstrap/js/bootstrap.js"></script>
+  	
 	<div class="container">
 	    <?php include_once('admin_header.html');?>
-        <form method="post" action="addnewgadgeta.php" class="form">
-		<table align="center">
-           <legend>Enter Item Details</legend>
+          
+		
+           <form method="post" action="addnewgadgeta.php" class="form">
+		 <table align="center">
+		  <legend>Enter Item Details</legend>
 		   
 			<tr><td class="trtd">Gadget Type:</td>
 			<td><select name="gtype">
@@ -135,23 +168,27 @@ header('Location:login.php');
 			<tr><td class="trtd">Serial Number:</td>
 			<td><input type="text" name="slnum" required/></td></tr>
 			<tr><td class="trtd">Received Date:</td>
-			<td><input type="text" id="datepicker" name="rdate" required readonly="readonly" style="background:white;cursor:auto"></td></tr>
+                            <td><input type="text" id="datepicker" name="rdate" required><span id="errmsg">&nbsp;&nbsp;<?php echo $perr;?></span></td></tr>
 			<tr><td class="trtd">Item Status:</td>
 			<td><select name="status">
-			<?php 
+			  <?php 
                           $sql = mysqli_query($con,"SELECT * FROM status");
                           while ($row = mysqli_fetch_array($sql))
 						  {
                           echo "<option value=\"".$row['status_name']."\">" . $row['status_name'] . "</option>";
 						  }
-		    mysqli_close($con);
+		         mysqli_close($con);
 			?></select></td></tr>
 			<tr><td class="trtd">Comment:</td>
-			<td><input type="text" name="comment" required/></td></tr>
-			<tr><td></td><td><button class="btn btn-success" id="submit" type="submit" name="submit">ADD</button></td></tr>			
-		</table></form>
+			<td><input type="text" name="comment"/></td></tr>
+			<tr><td></td><td><button class="btn btn-info" id="submit" type="submit" name="submit">&nbsp;&nbsp;Add&nbsp;&nbsp;</button></td></tr>			
+		
+	<fieldset>
+		
+		
+	</table></form>
             <legend></legend>
-			<a href="adminpage.php"><b> &lt;&lt; &nbsp; Go Back &nbsp;&lt;&lt;</br></a>
+			<a href="adminpage.php"><b>Go Back</a>
 		
 	</div>
        
